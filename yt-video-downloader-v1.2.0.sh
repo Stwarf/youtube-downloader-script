@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Trap to clean up temp files if script is interrupted
+cleanup() {
+    echo "⚠️ Script interrupted. Cleaning up temporary files..."
+    rm -rf "$TMP_DIR"
+    echo "🧹 Temp files removed from: $TMP_DIR"
+}
+
+trap cleanup EXIT INT TERM
+
 # Check if Homebrew is installed
 if ! command -v brew &> /dev/null; then
     echo "❌ Homebrew is not installed. Please install Homebrew from https://brew.sh/ before continuing."
@@ -46,7 +55,7 @@ if [ "$PYTHON_MAJOR" -lt 3 ] || { [ "$PYTHON_MAJOR" -eq 3 ] && [ "$PYTHON_MINOR"
     exit 1
 fi
 
-# Set directories
+ # Set directories
 VENV_DIR="$HOME/whisper-env"
 TMP_DIR="$(mktemp -d)"
 OUTPUT_DIR="$HOME/Downloads"
@@ -291,7 +300,11 @@ print(f"🧠 Using Faster Whisper model: {model_size}")
 model = WhisperModel(model_size, compute_type="int8", download_root="$MODEL_DIR")
 
 print("📝 Transcribing audio... This may take a while.")
-segments, _ = model.transcribe("$AUDIO_FILE", word_timestamps=True)
+segments, _ = model.transcribe(
+    "$AUDIO_FILE",
+    word_timestamps=True,
+    initial_prompt="Transcribe everything exactly as spoken, with no censorship of profanity, slurs and sensitive language."
+)
 
 def format_time(seconds):
     millisec = int((seconds - int(seconds)) * 1000)
