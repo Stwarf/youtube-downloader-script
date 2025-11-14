@@ -10,6 +10,7 @@ This script downloads a YouTube video, checks for manually uploaded subtitles, a
 - Embeds `.srt` subtitles directly into the downloaded `.mkv`
 - Uses macOS system temporary directory
 - Handles virtual environment and model downloads automatically
+- Download 4k YouTube videos
 
 ## 🧰 Requirements
 
@@ -23,6 +24,7 @@ This script downloads a YouTube video, checks for manually uploaded subtitles, a
 - `yt-dlp`
 - `ffmpeg`
 - `mkvtoolnix`
+- `Deno`
 
 ### Python Packages (installed in a virtual environment `~/whisper-env`):
 
