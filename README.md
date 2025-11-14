@@ -51,6 +51,7 @@ This script downloads a YouTube video, checks for manually uploaded subtitles, a
     ```
 
 4. Paste your desired YouTube URL when prompted.
+5. Choose quality you want the video downloaded when prompted and script will handle the rest
 
 ## 📂 Output
 
